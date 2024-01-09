@@ -4,7 +4,7 @@
 import datetime
 import json
 import uuid
-import models  # added
+from models import storage  # added
 
 
 class BaseModel:
@@ -26,11 +26,11 @@ class BaseModel:
                 else:
                     setattr(self, k, v)
         if not kwargs:  # added
-            models.storage.new(self)  # added
+            storage.new(self)  # added
 
     def save(self):
         self.updated_at = datetime.datetime.now()
-        models.storage.save()  # added
+        storage.save()  # added
 
     def to_dict(self):
 

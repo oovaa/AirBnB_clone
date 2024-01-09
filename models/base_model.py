@@ -22,7 +22,7 @@ class BaseModel:
                     try:
                         setattr(self, k, datetime.datetime.fromisoformat(v))
                     except ValueError:
-                        print(f"Error converting {k} to datetime: {v}")
+                        print("Error converting {} to datetime: {}".format(k, v))
                 else:
                     setattr(self, k, v)
         if not kwargs:  # added

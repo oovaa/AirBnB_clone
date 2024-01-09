@@ -6,7 +6,7 @@ import os
 
 
 class FileStorage:
-    __file_path = 'file.json'
+    __file_path = os.path.join(os.getcwd(), 'file.json')
     __objects = dict()
 
     def all(self):
@@ -18,7 +18,7 @@ class FileStorage:
     def save(self):
         with open(FileStorage.__file_path, 'w') as file:
             for k, v in FileStorage.__objects.items():
-                file.write(json.dumps(v.to_dict()))
+                json.dump(v.to_dict(), file)
                 file.write('\n')  # Add a newline between objects
 
     def reload(self):

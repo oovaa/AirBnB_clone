@@ -5,7 +5,6 @@ import datetime
 import json
 import uuid
 
-
 class BaseModel:
 
     def __init__(self, *args, **kwargs):

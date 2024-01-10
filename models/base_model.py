@@ -1,18 +1,18 @@
 #!/usr/bin/python3
 """base modle"""
 
-import datetime
+from datetime import datetime
 import json
 import uuid
-from models import storage  # added
+import models
 
 
 class BaseModel:
 
     def __init__(self, *args, **kwargs):
         self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
         if kwargs:
             for k, v in kwargs.items():
@@ -20,17 +20,17 @@ class BaseModel:
                     continue
                 if k in ('created_at', 'updated_at'):
                     try:
-                        setattr(self, k, datetime.datetime.fromisoformat(v))
+                        setattr(self, k, datetime.fromisoformat(v))
                     except ValueError:
                         print("Error converting {} to datetime: {}".format(k, v))
                 else:
                     setattr(self, k, v)
-        if not kwargs:  # added
-            storage.new(self)  # added
+        if not kwargs:
+            models.storage.new(self)
 
     def save(self):
-        self.updated_at = datetime.datetime.now()
-        storage.save()  # added
+        self.updated_at = datetime.now()
+        models.storage.save()  # added
 
     def to_dict(self):
 

@@ -7,41 +7,31 @@ from models.base_model import BaseModel
 
 
 class FileStorage:
-    __file_path = os.path.join(os.getcwd(), 'file.json')
-    __objects = dict()
+    __file_path = "file.json"
+    __objects = {}
 
     def all(self):
         return FileStorage.__objects
 
     def new(self, obj):
-        FileStorage.__objects[obj.id] = obj
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        FileStorage.__objects[key] = obj
 
     def save(self):
+        serialized_objects = {key: obj.to_dict()
+                              for key, obj in FileStorage.__objects.items()}
         with open(FileStorage.__file_path, 'w') as file:
-            for k, v in FileStorage.__objects.items():
-                json.dump(v.to_dict(), file)
-                file.write('\n')  # Add a newline between objects
+            json.dump(serialized_objects, file)
+
     def reload(self):
         try:
-            if os.path.exists(FileStorage.__file_path) and os.path.getsize(FileStorage.__file_path) > 0:
-                with open(FileStorage.__file_path) as f:
-                    objdict = json.load(f)
-                    obj_cls = objdict.get('__class__')
-                    classes = {'BaseModel': BaseModel}
-
-                    if obj_cls in classes:
-                        cls = classes[obj_cls]
-                        obj = cls()
-
-                        for k, v in objdict.items():
-                            if k != '__class__':
-                                setattr(obj, k, v)
-
-                        FileStorage.__objects[obj.id] = obj
-                    else:
-                        print(f"Warning: Class {obj_cls} not found.")
-            else:
-                print("Warning: File is empty or does not exist.")
-
-        except FileNotFoundError:
-            return
+            with open(FileStorage.__file_path, 'r') as file:
+                data = json.load(file)
+                for key, obj_dict in data.items():
+                    class_name = key.split('.')[0]
+                    
+                    cls = globals()[class_name]
+                    obj = cls(**obj_dict)
+                    FileStorage.__objects[key] = obj
+        except (FileNotFoundError, json.decoder.JSONDecodeError):
+            pass

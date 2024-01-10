@@ -4,6 +4,7 @@
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -29,7 +30,7 @@ class FileStorage:
                 data = json.load(file)
                 for key, obj_dict in data.items():
                     class_name = key.split('.')[0]
-                    
+
                     cls = globals()[class_name]
                     obj = cls(**obj_dict)
                     FileStorage.__objects[key] = obj

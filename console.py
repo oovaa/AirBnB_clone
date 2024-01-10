@@ -3,6 +3,7 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
@@ -10,7 +11,7 @@ class HBNBCommand(cmd.Cmd):
     """Entry point to CI"""
 
     prompt = "(hbnb) "
-    actual_class = ["BaseModel"]
+    actual_class = ["BaseModel", "User"]
 
     def do_quit(self, *args):
         """Quit command to exit the program"""
@@ -24,9 +25,9 @@ class HBNBCommand(cmd.Cmd):
         """Execute nothing"""
         pass
 
-    def do_create(self, line):
+    def do_create(self, input):
         """Create instance of BaseModel & save json file"""
-        args = line.split()
+        args = input.split()
 
         if len(args) == 0:
             print("** class name missing **")
@@ -40,9 +41,9 @@ class HBNBCommand(cmd.Cmd):
             print(new.id)
             new.save()
 
-    def do_show(self, line):
+    def do_show(self, input):
         """Prints the string representation of instance based on class name & id"""
-        args = line.split()
+        args = input.split()
 
         if len(args) == 0:
             print("** class name missing **")
@@ -61,9 +62,9 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** no instance found **")
 
-    def do_destroy(self, line):
+    def do_destroy(self, input):
         """Deletes an instance based on the class name and id"""
-        args = line.split()
+        args = input.split()
 
         if len(args) == 0:
             print("** class name missing **")
@@ -81,6 +82,21 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
             else:
                 print("** no instance found **")
+
+    def do_all(self, input):
+        """Prints all str rep of all insts based or not on the class name."""
+        args = input.split()
+
+        if args[0] not in HBNBCommand.actual_class:
+            print("** class doesn't exist **")
+        else:
+            instances = []
+            for key, obj in storage.all().items():
+                if key.startswith(args[0]):
+                    instances.append(obj)
+
+        for instance in instances:
+            print(str(instance))
 
 
 if __name__ == '__main__':

@@ -10,37 +10,41 @@ import models
 class BaseModel:
 
     def __init__(self, *args, **kwargs):
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-
         if kwargs:
-            for k, v in kwargs.items():
-                if k in ('__class__'):
-                    continue
-                if k in ('created_at', 'updated_at'):
-                    try:
-                        setattr(self, k, datetime.fromisoformat(v))
-                    except ValueError:
-                        print("Error converting {} to datetime: {}".format(k, v))
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    setattr(self, key, datetime.strptime(
+                        value, '%Y-%m-%dT%H:%M:%S.%f'))
                 else:
-                    setattr(self, k, v)
-        if not kwargs:
+                    if key != '__class__':
+                        setattr(self, key, value)
+            models.storage.new(self)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             models.storage.new(self)
 
     def save(self):
         self.updated_at = datetime.now()
-        models.storage.save()  # added
+        models.storage.save()
 
     def to_dict(self):
 
-        obj_dict = self.__dict__
+        obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
 
         if 'created_at' in obj_dict:
+            if not isinstance(obj_dict['created_at'], datetime):
+                obj_dict['created_at'] = datetime.fromisoformat(
+                    obj_dict['created_at'])
+
             obj_dict['created_at'] = obj_dict['created_at'].isoformat()
 
         if 'updated_at' in obj_dict:
+            if not isinstance(obj_dict['updated_at'], datetime):
+                obj_dict['updated_at'] = datetime.fromisoformat(
+                    obj_dict['updated_at'])
             obj_dict['updated_at'] = obj_dict['updated_at'].isoformat()
 
         return obj_dict

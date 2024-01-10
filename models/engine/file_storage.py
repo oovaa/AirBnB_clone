@@ -3,6 +3,7 @@
 
 import json
 import os
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -20,14 +21,27 @@ class FileStorage:
             for k, v in FileStorage.__objects.items():
                 json.dump(v.to_dict(), file)
                 file.write('\n')  # Add a newline between objects
-
     def reload(self):
-        if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, 'r') as file:
-                for line in file:
-                    obj_dict = json.loads(line)
-                    class_name = obj_dict.pop('__class__', None)
-                    if class_name:
-                        cls = eval(class_name)
-                        obj = cls(**obj_dict)
+        try:
+            if os.path.exists(FileStorage.__file_path) and os.path.getsize(FileStorage.__file_path) > 0:
+                with open(FileStorage.__file_path) as f:
+                    objdict = json.load(f)
+                    obj_cls = objdict.get('__class__')
+                    classes = {'BaseModel': BaseModel}
+
+                    if obj_cls in classes:
+                        cls = classes[obj_cls]
+                        obj = cls()
+
+                        for k, v in objdict.items():
+                            if k != '__class__':
+                                setattr(obj, k, v)
+
                         FileStorage.__objects[obj.id] = obj
+                    else:
+                        print(f"Warning: Class {obj_cls} not found.")
+            else:
+                print("Warning: File is empty or does not exist.")
+
+        except FileNotFoundError:
+            return

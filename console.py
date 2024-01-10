@@ -23,7 +23,7 @@ class HBNBCommand(cmd.Cmd):
         """Execute nothing"""
         pass
 
-    def do_create(self, *args):
+    def do_create(self, line):
         """Create instance of BaseModel & save json file"""
         args = line.split()
         actual_class = ["BaseModel"]

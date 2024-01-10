@@ -17,9 +17,6 @@ class HBNBCommand(cmd.Cmd):
         """Exit prog"""
         return True
 
-    def do_help(self, arg: str):
-        pass
-
     def emptyline(self):
         """Execute nothing"""
         pass

@@ -93,14 +93,25 @@ class HBNBCommand(cmd.Cmd):
             instances = []
             for key, obj in storage.all().items():
                 if key.startswith(args[0]):
-                    instances.append(obj)
+                    instances.append(str(obj))
 
-        for instance in instances:
-            print(str(instance))
+        print(instances)
 
     def do_update(self, input):
         """Updates inst based on class name & id by adding or updating attr"""
         args = input.split()
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        elif args[0] not in HBNBCommand.actual_class:
+            print("** class doesn't exist **")
+            return
+        elif len(args) <= 1:
+            print("** instance id missing **")
+            return
+        elif all(key.split('.')[1] != args[1] for key in storage.all().keys()):
+            print("** no instance found **")
+            return
 
 
 if __name__ == '__main__':

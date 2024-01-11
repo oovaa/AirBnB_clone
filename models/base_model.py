@@ -2,7 +2,6 @@
 """base modle"""
 
 from datetime import datetime
-import json
 import uuid
 import models
 

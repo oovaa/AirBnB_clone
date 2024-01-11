@@ -131,7 +131,7 @@ class HBNBCommand(cmd.Cmd):
         if key in obj:
             instance = obj[key]
             setattr(instance, attr_name, type(
-                getattr(instance, attr_name))(attr_val))
+                getattr(User, attr_name))(attr_val))
             instance.save()
 
 

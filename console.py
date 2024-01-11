@@ -98,6 +98,10 @@ class HBNBCommand(cmd.Cmd):
         for instance in instances:
             print(str(instance))
 
+    def do_update(self, input):
+        """Updates inst based on class name & id by adding or updating attr"""
+        args = input.split()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

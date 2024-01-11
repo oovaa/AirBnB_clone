@@ -131,9 +131,13 @@ class HBNBCommand(cmd.Cmd):
 
         if key in obj:
             instance = obj[key]
-            setattr(instance, attr_name, type(
-                getattr(instance, attr_name))(attr_val))
-            instance.save()
+            if hasattr(instance, attr_name):
+                setattr(instance, attr_name, type(getattr(instance, attr_name))(attr_val))
+                instance.save()
+            else:
+                print("** no instance found **")
+        else:
+            print("** no instance found **")
 
 
 if __name__ == '__main__':

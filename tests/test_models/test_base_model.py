@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+"""Unit test for Base class"""
+
 import unittest
 import os
 from models.base_model import BaseModel
@@ -19,3 +22,4 @@ class TestBase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

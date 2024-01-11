@@ -11,9 +11,7 @@ class TestState(unittest.TestCase):
 
     def setUp(self):
         """Return to empty"""
-        Review.place_id = ""
-        Review.user_id = ""
-        Review.text = ""
+        self.review_instance = Review()
 
     def test_module_doc(self):
         """check for module doc"""

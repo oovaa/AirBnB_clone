@@ -11,17 +11,7 @@ class TestPlace(unittest.TestCase):
 
     def setUp(self):
         """Return to empty"""
-        Place.city_id = ""
-        Place.user_id = ""
-        Place.name = ""
-        Place.description = ""
-        Place.number_rooms = int()
-        Place.number_bathrooms = int()
-        Place.max_guest = int()
-        Place.price_by_night = int()
-        Place.latitude = float()
-        Place.longitude = float()
-        Place.amenity_ids = []
+        self.place_instance = Place()
 
     def test_module_doc(self):
         """check for module doc"""

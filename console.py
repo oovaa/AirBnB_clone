@@ -95,11 +95,8 @@ class HBNBCommand(cmd.Cmd):
                 if key.startswith(args[0]):
                     instances.append(obj)
 
-        print(["[{}] ({}) {}".format(
-            instance.__class__.__name__,
-            instance.id,
-            instance._dict
-        )for instance in instances])
+        for instance in instances:
+            print(str(instance))
 
 
 if __name__ == '__main__':

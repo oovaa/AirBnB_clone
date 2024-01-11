@@ -89,6 +89,7 @@ class HBNBCommand(cmd.Cmd):
 
         if args[0] not in HBNBCommand.actual_class:
             print("** class doesn't exist **")
+            return
         else:
             instances = []
             for key, obj in storage.all().items():
@@ -131,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
         if key in obj:
             instance = obj[key]
             setattr(instance, attr_name, type(
-                getattr(User, attr_name))(attr_val))
+                getattr(instance, attr_name))(attr_val))
             instance.save()
 
 

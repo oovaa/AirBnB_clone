@@ -1,35 +1,20 @@
 {
-    "BaseModel.36c5888d-1688-4a96-a595-59a96d58cc21": {
-        "id": "36c5888d-1688-4a96-a595-59a96d58cc21",
-        "created_at": "2024-01-12T06:04:05.477855",
-        "updated_at": "2024-01-12T06:13:13.505318",
+    "BaseModel.ce756895-a393-4b9d-940f-377d69f3446c": {
+        "id": "ce756895-a393-4b9d-940f-377d69f3446c",
+        "created_at": "2024-01-12T06:20:36.904170",
+        "updated_at": "2024-01-12T06:21:31.867928",
+        "hot": "true",
+        "name": "omar",
+        "__class__": "BaseModel"
+    },
+    "User.fc995cab-19bc-4f82-9f25-afb8e47fb603": {
+        "id": "fc995cab-19bc-4f82-9f25-afb8e47fb603",
+        "created_at": "2024-01-12T06:25:52.424080",
+        "updated_at": "2024-01-12T06:27:30.332073",
+        "email": "",
+        "password": "",
         "first_name": "omar",
-        "__class__": "BaseModel"
-    },
-    "User.d16b3caf-d0cd-4c0f-82bd-b361fc867453": {
-        "id": "d16b3caf-d0cd-4c0f-82bd-b361fc867453",
-        "created_at": "2024-01-12T06:14:23.290558",
-        "updated_at": "2024-01-12T06:14:23.290633",
-        "email": "",
-        "password": "",
-        "first_name": "",
         "last_name": "",
         "__class__": "User"
-    },
-    "User.00ae7080-ef64-4328-8ea8-a739c708836d": {
-        "id": "00ae7080-ef64-4328-8ea8-a739c708836d",
-        "created_at": "2024-01-12T06:14:29.051063",
-        "updated_at": "2024-01-12T06:14:29.051130",
-        "email": "",
-        "password": "",
-        "first_name": "",
-        "last_name": "",
-        "__class__": "User"
-    },
-    "BaseModel.6d2366c8-a021-4147-b0e2-0f04b89ed9b1": {
-        "id": "6d2366c8-a021-4147-b0e2-0f04b89ed9b1",
-        "created_at": "2024-01-12T06:14:39.297064",
-        "updated_at": "2024-01-12T06:14:39.297130",
-        "__class__": "BaseModel"
     }
 }

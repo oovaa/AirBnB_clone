@@ -48,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
             new.save()
 
     def do_show(self, input):
-        """Prints the string representation of instance based on class name & id"""
+        """Prints the string repre of instance based on class name & id"""
         args = input.split()
 
         if len(args) == 0:

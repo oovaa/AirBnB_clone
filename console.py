@@ -137,8 +137,23 @@ class HBNBCommand(cmd.Cmd):
 
         if key in obj:
             instance = obj[key]
-            setattr(instance, attr_name, type(getattr(User, attr_name))(attr_val))
+
+            # Ensure id, created_at, and updated_at are not updated
+            if attr_name in ["id", "created_at", "updated_at"]:
+                print(f"Cannot update {attr_name}")
+                return
+
+            # If the attribute doesn't exist, add it to the instance
+            if not hasattr(instance, attr_name):
+                setattr(instance, attr_name, "")
+
+            # Update the attribute value on the instance
+            setattr(instance, attr_name, type(
+                getattr(instance, attr_name))(attr_val))
             instance.save()
+        else:
+            print("** no instance found **")
+            return
 
 
 if __name__ == '__main__':

@@ -22,6 +22,7 @@ class TestCity(unittest.TestCase):
         self.assertTrue(len(City.__doc__) > 0)
 
     def test_name_initialization(self):
+        """check if name is initialized"""
         self.assertEqual(self.city_instance.name, "")
 
 

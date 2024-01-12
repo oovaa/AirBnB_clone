@@ -22,6 +22,7 @@ class TestState(unittest.TestCase):
         self.assertTrue(len(State.__doc__) > 0)
 
     def test_name_initialization(self):
+        """check if name is initialsied"""
         self.assertEqual(self.state_instance.name, "")
 
 

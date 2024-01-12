@@ -22,6 +22,7 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(len(Place.__doc__) > 0)
 
     def test_name_initialization(self):
+        """check if name is initalised"""
         self.assertEqual(self.place_instance.name, "")
 
     def test_field_types(self):

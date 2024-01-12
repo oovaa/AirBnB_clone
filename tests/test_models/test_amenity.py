@@ -22,6 +22,7 @@ class TestAmenity(unittest.TestCase):
         self.assertTrue(len(Amenity.__doc__) > 0)
 
     def test_name_initialization(self):
+        """check if name is initialized"""
         self.assertEqual(self.amenity_instance.name, "")
 
 

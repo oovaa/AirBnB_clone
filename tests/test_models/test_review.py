@@ -22,6 +22,7 @@ class TestState(unittest.TestCase):
         self.assertTrue(len(Review.__doc__) > 0)
 
     def test_text_initialization(self):
+        """check if text is initailzed"""
         self.assertEqual(self.review_instance.text, "")
 
     def test_field_types(self):

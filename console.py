@@ -157,39 +157,113 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
+    def do_count(self, line):
+        """Prints all str rep of all insts based or not on the class name."""
+        args = line.split()
+
+        if args[0] not in HBNBCommand.actual_class:
+            print("** class doesn't exist **")
+            return
+        else:
+            i = 0
+            for key, obj in storage.all().items():
+                if key.startswith(args[0]):
+                    i += 1
+            print(i)
+
     def precmd(self, line):
-        classes = {
-            "User": User,
-            "BaseModel": BaseModel,
-            "City": City,
-            "Place": Place,
-            "Amenity": Amenity,
-            "State": State,
-            "Review": Review
-        }
-        methods = {
-            "all": HBNBCommand.do_all
-        }
         actual_cmd = ""
 
-        line = line.split(".")
+        # Validate the pattern
+        pattern = r'^([a-zA-Z_]\w*)\.([a-zA-Z_]\w*)\(([^)]*)\)$'
 
-        cls_name = line[0]
-        method = line[1][0: -2]
+        # Check if the string matches the pattern
+        match = re.match(pattern, line.strip())
+        if not match:
+            # Return the original command if not matching the pattern
+            return line
 
-        actual_cmd = "{} {}".format(cls_name, method)
+        # Extract information using named groups
+        class_part, method_part, method_args = match.groups()
 
-        print(actual_cmd)
+        # Get the actual command
+        actual_cmd = "{} {} {}".format(method_part, class_part, method_args)
 
         return actual_cmd
 
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-    
-    <class name>.count().
-    <class name>.show(<id>).
-    <class name>.destroy(<id>).
-    <class name>.update(<id>, <attribute name>, <attribute value>).
-<class name>.update(<id>, <dictionary representation>).
 
+    # def precmd(self, line):
+
+    #     actual_cmd = ""
+    #     line = line.strip()
+    #     # validate the battren
+    #     to_check = line
+    #     pattern = r'^([a-zA-Z_]\w*)\.([a-zA-Z_]\w*)\(([^)]*)\)$'
+    #     # Check if the string matches the pattern
+    #     if not re.match(pattern, to_check):
+    #         # return the command if not
+    #         return line
+
+    #     # split and store
+    #     class_part = line.split(".")[0]
+    #     method_part = line.split(".")[1]
+    #     method_args = method_part[method_part.index("(")+1:-1]
+    #     method_part = method_part[:method_part.index("(")]
+
+    #     # get the actual command
+    #     actual_cmd = "{} {} {}".format(method_part, class_part, method_args)
+
+    #     return actual_cmd
+
+    # <class name>.count()
+    # <class name>.show(<id>)
+    # <class name>.destroy(<id>)
+    # <class name>.update(<id>, <attribute name>, <attribute value>)
+    # <class name>.update(<id>, <dictionary representation>)
+
+    # classes = {
+    #     "User": User,
+    #     "BaseModel": BaseModel,
+    #     "City": City,
+    #     "Place": Place,
+    #     "Amenity": Amenity,
+    #     "State": State,
+    #     "Review": Review
+    # }
+    # actual_cmd = ""
+    # cls_name = ""
+    # method = ""
+    # args = ""
+
+    # # Check if the command matches the patterns
+    # if re.match(r'^\w+\.(count|show|destroy|update)\(.+\)$', line):
+    #     # Validate the class name
+    #     cls_name, rest = line.split(".", 1)
+    #     if cls_name not in classes:
+    #         print("** class doesn't exist **")
+    #         return ""
+
+    #     # Split the method and arguments
+    #     method, args = re.match(r'(\w+)\((.+)\)', rest).groups()
+    #     args = args.strip()
+
+    #     # Construct the valid command
+    #     if method == "update":
+    #         args = args.split(", ")
+    #         args = ' '.join(args)
+    #         actual_cmd = f"{method} {cls_name} {args}"
+    #     else:
+    #         actual_cmd = f"{cls_name} {method} {args}"
+    # else:
+    #     # If not, split the line and construct the command
+    #     line_parts = line.split(".")
+    #     cls_name = line_parts[0]
+    #     if cls_name not in classes:
+    #         print("** class doesn't exist **")
+    #         return ""
+
+    #     method = line_parts[1].split("(")[0]
+    #     actual_cmd = f"{cls_name} {method}"

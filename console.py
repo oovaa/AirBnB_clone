@@ -2,6 +2,8 @@
 """CLI"""
 
 import cmd
+from json import loads
+import re
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -155,6 +157,39 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
+    def precmd(self, line):
+        classes = {
+            "User": User,
+            "BaseModel": BaseModel,
+            "City": City,
+            "Place": Place,
+            "Amenity": Amenity,
+            "State": State,
+            "Review": Review
+        }
+        methods = {
+            "all": HBNBCommand.do_all
+        }
+        actual_cmd = ""
+
+        line = line.split(".")
+
+        cls_name = line[0]
+        method = line[1][0: -2]
+
+        actual_cmd = "{} {}".format(cls_name, method)
+
+        print(actual_cmd)
+
+        return actual_cmd
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+    
+    <class name>.count().
+    <class name>.show(<id>).
+    <class name>.destroy(<id>).
+    <class name>.update(<id>, <attribute name>, <attribute value>).
+<class name>.update(<id>, <dictionary representation>).
+

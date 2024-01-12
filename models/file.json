@@ -1,0 +1,100 @@
+{
+    "Review.4e6fe573-345e-440e-bb1d-013243ec9194": {
+        "id": "4e6fe573-345e-440e-bb1d-013243ec9194",
+        "created_at": "2024-01-12T11:13:59.955357",
+        "updated_at": "2024-01-12T11:13:59.955404",
+        "place_id": "",
+        "user_id": "",
+        "text": "Great experience!",
+        "__class__": "Review"
+    },
+    "Place.abc42307-de0d-492d-a3c3-77d0f51f02e6": {
+        "id": "abc42307-de0d-492d-a3c3-77d0f51f02e6",
+        "created_at": "2024-01-12T11:13:59.955797",
+        "updated_at": "2024-01-12T11:13:59.955824",
+        "city_id": "",
+        "user_id": "",
+        "name": "Cozy Cabin",
+        "description": "",
+        "number_rooms": 0,
+        "number_bathrooms": 0,
+        "max_guest": 0,
+        "price_by_night": 0,
+        "latitude": 0.0,
+        "longitude": 0.0,
+        "amenity_ids": [],
+        "price_per_night": 100,
+        "__class__": "Place"
+    },
+    "State.56b56656-933f-4e06-bbfa-451bef41b761": {
+        "id": "56b56656-933f-4e06-bbfa-451bef41b761",
+        "created_at": "2024-01-12T11:13:59.956559",
+        "updated_at": "2024-01-12T11:13:59.956579",
+        "name": "California",
+        "__class__": "State"
+    },
+    "City.6fa66dc2-64ae-4763-966d-cd74930911ce": {
+        "id": "6fa66dc2-64ae-4763-966d-cd74930911ce",
+        "created_at": "2024-01-12T11:13:59.957051",
+        "updated_at": "2024-01-12T11:13:59.957074",
+        "state_id": "56b56656-933f-4e06-bbfa-451bef41b761",
+        "name": "San Francisco",
+        "__class__": "City"
+    },
+    "Amenity.15183328-0d24-4998-9705-e1d241f74eb8": {
+        "id": "15183328-0d24-4998-9705-e1d241f74eb8",
+        "created_at": "2024-01-12T11:13:59.957502",
+        "updated_at": "2024-01-12T11:13:59.957515",
+        "name": "Wi-Fi",
+        "__class__": "Amenity"
+    },
+    "Review.00e7c571-f549-4977-97f7-cf81ee282496": {
+        "id": "00e7c571-f549-4977-97f7-cf81ee282496",
+        "created_at": "2024-01-12T11:14:05.852031",
+        "updated_at": "2024-01-12T11:14:05.852060",
+        "place_id": "",
+        "user_id": "",
+        "text": "Great experience!",
+        "__class__": "Review"
+    },
+    "Place.56922aac-6c46-4b41-98ef-2c924a4fcf9d": {
+        "id": "56922aac-6c46-4b41-98ef-2c924a4fcf9d",
+        "created_at": "2024-01-12T11:14:05.852620",
+        "updated_at": "2024-01-12T11:14:05.852640",
+        "city_id": "",
+        "user_id": "",
+        "name": "Cozy Cabin",
+        "description": "",
+        "number_rooms": 0,
+        "number_bathrooms": 0,
+        "max_guest": 0,
+        "price_by_night": 0,
+        "latitude": 0.0,
+        "longitude": 0.0,
+        "amenity_ids": [],
+        "price_per_night": 100,
+        "__class__": "Place"
+    },
+    "State.71a2a79b-4ec7-4fa3-b905-38204c7e2100": {
+        "id": "71a2a79b-4ec7-4fa3-b905-38204c7e2100",
+        "created_at": "2024-01-12T11:14:05.853120",
+        "updated_at": "2024-01-12T11:14:05.853134",
+        "name": "California",
+        "__class__": "State"
+    },
+    "City.daa459b9-f548-48ad-a562-523cb83d8849": {
+        "id": "daa459b9-f548-48ad-a562-523cb83d8849",
+        "created_at": "2024-01-12T11:14:05.853589",
+        "updated_at": "2024-01-12T11:14:05.853603",
+        "state_id": "71a2a79b-4ec7-4fa3-b905-38204c7e2100",
+        "name": "San Francisco",
+        "__class__": "City"
+    },
+    "Amenity.2d444a03-3c78-4e16-9969-d0db5cd46cf5": {
+        "id": "2d444a03-3c78-4e16-9969-d0db5cd46cf5",
+        "created_at": "2024-01-12T11:14:05.854089",
+        "updated_at": "2024-01-12T11:14:05.854103",
+        "name": "Wi-Fi",
+        "__class__": "Amenity"
+    }
+}

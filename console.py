@@ -190,6 +190,28 @@ class HBNBCommand(cmd.Cmd):
 
         return actual_cmd.replace('"', '').replace(',', '')
 
+    def update_inst(class_obj, inst_id, attr_dict):
+        """Updates an instance based on ID with dictionary"""
+        key = f"{class_obj.__name__}.{inst_id}"
+        found = storage.all()
+
+        if key in found:
+            input = found[key]
+
+            if "id" in attr_dict or "created_at" in attr_dict or "updated_at" in attr_dict:
+                print("Cannot update id, created_at, or updated_at")
+                return
+
+            for k, v in attr_dict.items():
+                if hasattr(input, k):
+                    setattr(input, k, type(getattr(input, k))(v))
+                else:
+                    print(f"Attribute {k} does not exist in {
+                          class_obj.__name__}")
+                input.save()
+        else:
+            print("** no instance found **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

@@ -158,9 +158,9 @@ class HBNBCommand(cmd.Cmd):
         """Updates inst based on class name & id by adding or updating attr"""
         args = input_str.split()
 
-        if not re.match(r'^[a-zA-Z_]\w*\.update\(\w+, \{.*\}\)$',
-                        input_str.strip()):
-            self.update_inst(input_str)
+        regex = r'^[a-zA-Z_]\w*\.update\(\w+, \{.*\}\)$'
+        if not re.match(regex, input_str.strip()):
+            print("** Invalid update command format **", input_str)
             return
 
         if len(args) == 0:

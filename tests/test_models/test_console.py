@@ -13,4 +13,9 @@ from console import HBNBCommand
 
 
 class Test_Console(unittest.TestCase):
+    """Class for test
+
+    Args:
+        unittest (test): Used for testing
+    """
     pass

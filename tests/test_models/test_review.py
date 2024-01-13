@@ -28,9 +28,9 @@ class TestState(unittest.TestCase):
     def test_field_types(self):
         """ Test field attributes of user """
         my_Review = Review()
-        self.assertTrue(type(my_Review.place_id) == str)
-        self.assertTrue(type(my_Review.user_id) == str)
-        self.assertTrue(type(my_Review.text) == str)
+        self.assertTrue(type(my_Review.place_id) is str)
+        self.assertTrue(type(my_Review.user_id) is str)
+        self.assertTrue(type(my_Review.text) is str)
 
 
 if __name__ == '__main__':

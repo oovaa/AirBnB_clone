@@ -27,17 +27,17 @@ class TestPlace(unittest.TestCase):
 
     def test_field_types(self):
         """ Test field attributes of user """
-        self.assertTrue(type(Place.city_id) == str)
-        self.assertTrue(type(Place.user_id) == str)
-        self.assertTrue(type(Place.name) == str)
-        self.assertTrue(type(Place.description) == str)
-        self.assertTrue(type(Place.number_rooms) == int)
-        self.assertTrue(type(Place.number_bathrooms) == int)
-        self.assertTrue(type(Place.max_guest) == int)
-        self.assertTrue(type(Place.price_by_night) == int)
-        self.assertTrue(type(Place.latitude) == float)
-        self.assertTrue(type(Place.longitude) == float)
-        self.assertTrue(type(Place.amenity_ids) == list)
+        self.assertTrue(type(Place.city_id) is str)
+        self.assertTrue(type(Place.user_id) is str)
+        self.assertTrue(type(Place.name) is str)
+        self.assertTrue(type(Place.description) is str)
+        self.assertTrue(type(Place.number_rooms) is int)
+        self.assertTrue(type(Place.number_bathrooms) is int)
+        self.assertTrue(type(Place.max_guest) is int)
+        self.assertTrue(type(Place.price_by_night) is int)
+        self.assertTrue(type(Place.latitude) is float)
+        self.assertTrue(type(Place.longitude) is float)
+        self.assertTrue(type(Place.amenity_ids) is list)
 
 
 if __name__ == '__main__':

@@ -129,7 +129,6 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        target_class = globals()[args[0]]
         inst_id = args[1]
         attr_name = args[2]
         attr_val = args[3].strip('"')
@@ -166,7 +165,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             i = 0
-            for key, obj in storage.all().items():
+            for key, _ in storage.all().items():
                 if key.startswith(args[0]):
                     i += 1
             print(i)

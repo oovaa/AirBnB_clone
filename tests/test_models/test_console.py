@@ -1,21 +1,15 @@
 #!/usr/bin/python3
-"""Defines unittests for models/review.py.
+"""Defines unittests for models/user.py.
 
 Unittest classes:
-    TestReview_instantiation
-    TestReview_save
-    TestReview_to_dict
+    TestUser_instantiation
+    TestUser_save
+    TestUser_to_dict
 """
-
-
 import unittest
 from console import HBNBCommand
 
 
-class Test_Console(unittest.TestCase):
-    """Class for test
-
-    Args:
-        unittest (test): Used for testing
-    """
+class TestUser_instantiation(unittest.TestCase):
+    """Unittests for testing instantiation of the User class."""
     pass

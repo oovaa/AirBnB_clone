@@ -14,11 +14,13 @@ from models.review import Review
 
 class FileStorage:
 
-    """This class manages the serialization and deserialization of objects to a JSON file.
+    """This class manages the serialization and deserialization of objects to a
+    JSON file.
 
     Attributes:
         __file_path (str): The path to the JSON file.
-        __objects (dict): A dictionary containing objects stored with their keys.
+        __objects (dict): A dictionary containing objects
+        stored with their keys.
     """
     __file_path = "file.json"
     __objects = {}

@@ -196,19 +196,26 @@ class HBNBCommand(cmd.Cmd):
         found = storage.all()
 
         if key in found:
-            input = found[key]
+            input_instance = found[key]
 
-            if "id" in attr_dict or "created_at" in attr_dict or "updated_at" in attr_dict:
+            if "id" in attr_dict \
+                    or "created_at" in attr_dict or "updated_at" in attr_dict:
                 print("Cannot update id, created_at, or updated_at")
                 return
 
             for k, v in attr_dict.items():
-                if hasattr(input, k):
-                    setattr(input, k, type(getattr(input, k))(v))
+                # Use getattr with a default value to handle non-existent ones
+                current_value = getattr(input_instance, k, None)
+
+                # Check if the attribute exists
+                if current_value is not None:
+                    setattr(input_instance, k, type(current_value)(v))
                 else:
-                    print(f"Attribute {k} does not exist in {
-                          class_obj.__name__}")
-                input.save()
+                    print(
+                        "Attribute {} does not exist in {}".format(
+                            k, class_obj.__name__
+                        ))
+            input_instance.save()
         else:
             print("** no instance found **")
 

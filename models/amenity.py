@@ -20,4 +20,7 @@ class Amenity(BaseModel):
             **kwargs: Arbitrary keyword arguments.
         """
         super().__init__(*args, **kwargs)
-        self.name = kwargs.get('name', '')
+
+        name = kwargs.get('name', '')
+        if name:
+            self.name = name

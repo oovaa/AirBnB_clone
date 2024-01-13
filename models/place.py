@@ -41,14 +41,26 @@ class Place(BaseModel):
             **kwargs: Arbitrary keyword arguments.
         """
         super().__init__(*args, **kwargs)
-        self.city_id = kwargs.get('city_id', '')
-        self.user_id = kwargs.get('user_id', '')
-        self.name = kwargs.get('name', '')
-        self.description = kwargs.get('description', '')
-        self.number_rooms = kwargs.get('number_rooms', 0)
-        self.number_bathrooms = kwargs.get('number_bathrooms', 0)
-        self.max_guest = kwargs.get('max_guest', 0)
-        self.price_by_night = kwargs.get('price_by_night', 0)
-        self.latitude = kwargs.get('latitude', 0.0)
-        self.longitude = kwargs.get('longitude', 0.0)
-        self.amenity_ids = kwargs.get('amenity_ids', [])
+
+        if 'city_id' in kwargs and kwargs['city_id']:
+            self.city_id = kwargs['city_id']
+        if 'user_id' in kwargs and kwargs['user_id']:
+            self.user_id = kwargs['user_id']
+        if 'name' in kwargs and kwargs['name']:
+            self.name = kwargs['name']
+        if 'description' in kwargs and kwargs['description']:
+            self.description = kwargs['description']
+        if 'number_rooms' in kwargs and kwargs['number_rooms']:
+            self.number_rooms = kwargs['number_rooms']
+        if 'number_bathrooms' in kwargs and kwargs['number_bathrooms']:
+            self.number_bathrooms = kwargs['number_bathrooms']
+        if 'max_guest' in kwargs and kwargs['max_guest']:
+            self.max_guest = kwargs['max_guest']
+        if 'price_by_night' in kwargs and kwargs['price_by_night']:
+            self.price_by_night = kwargs['price_by_night']
+        if 'latitude' in kwargs and kwargs['latitude']:
+            self.latitude = kwargs['latitude']
+        if 'longitude' in kwargs and kwargs['longitude']:
+            self.longitude = kwargs['longitude']
+        if 'amenity_ids' in kwargs and kwargs['amenity_ids']:
+            self.amenity_ids = kwargs['amenity_ids']

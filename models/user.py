@@ -26,7 +26,12 @@ class User(BaseModel):
             **kwargs: Arbitrary keyword arguments.
         """
         super().__init__(*args, **kwargs)
-        self.email = kwargs.get('email', "")
-        self.password = kwargs.get('password', "")
-        self.first_name = kwargs.get('first_name', "")
-        self.last_name = kwargs.get('last_name', "")
+
+        if 'email' in kwargs and kwargs['email']:
+            self.email = kwargs['email']
+        if 'password' in kwargs and kwargs['password']:
+            self.password = kwargs['password']
+        if 'first_name' in kwargs and kwargs['first_name']:
+            self.first_name = kwargs['first_name']
+        if 'last_name' in kwargs and kwargs['last_name']:
+            self.last_name = kwargs['last_name']

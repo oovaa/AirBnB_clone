@@ -20,4 +20,6 @@ class State(BaseModel):
             **kwargs: Arbitrary keyword arguments.
         """
         super().__init__(*args, **kwargs)
-        self.name = kwargs.get('name', '')
+
+        if 'name' in kwargs and kwargs['name']:
+            self.name = kwargs['name']

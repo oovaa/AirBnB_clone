@@ -23,5 +23,12 @@ class City(BaseModel):
             **kwargs: Arbitrary keyword arguments.
         """
         super().__init__(*args, **kwargs)
-        self.state_id = kwargs.get('state_id', '')
-        self.name = kwargs.get('name', '')
+
+        state_id = kwargs.get('state_id', '')
+        name = kwargs.get('name', '')
+
+        # Set values only if they are not empty
+        if state_id:
+            self.state_id = state_id
+        if name:
+            self.name = name

@@ -7,7 +7,8 @@ import models
 
 
 class BaseModel:
-    """The BaseModel class is the base class for all models in the AirBnB clone project.
+    """The BaseModel class is the base class for all
+        models in the AirBnB clone project.
 
     Attributes:
         id (str): The unique identifier for each instance.

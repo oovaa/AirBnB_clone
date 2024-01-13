@@ -24,6 +24,10 @@ class Review(BaseModel):
             **kwargs: Arbitrary keyword arguments.
         """
         super().__init__(*args, **kwargs)
-        self.place_id = kwargs.get('place_id', '')
-        self.user_id = kwargs.get('user_id', '')
-        self.text = kwargs.get('text', '')
+
+        if 'place_id' in kwargs and kwargs['place_id']:
+            self.place_id = kwargs['place_id']
+        if 'user_id' in kwargs and kwargs['user_id']:
+            self.user_id = kwargs['user_id']
+        if 'text' in kwargs and kwargs['text']:
+            self.text = kwargs['text']

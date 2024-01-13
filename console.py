@@ -106,12 +106,61 @@ class HBNBCommand(cmd.Cmd):
 
         print(instances)
 
+    def update_inst(self, input_str):
+        """Updates an instance based on ID with dictionary from string"""
+        # Validate the pattern
+        pattern = r'^([a-zA-Z_]\w*)\.update\(([a-zA-Z_]\w*), (\{.*\})\)$'
+
+        # Check if the string matches the pattern
+        match = re.match(pattern, input_str.strip())
+        if not match:
+            print(
+                "Invalid update format. Use: <class name>.update(<id>,\
+                    <dictionary representation>)", input_str)
+
+            return
+
+        # Extract information using named groups
+        class_name, inst_id, dict_repr = match.groups()
+
+        class_obj = globals()[class_name]
+        key = f"{class_obj.__name__}.{inst_id}"
+        found = storage.all()
+
+        if key in found:
+            input_instance = found[key]
+
+            # Convert the dictionary representation to a Python dictionary
+            attr_dict = eval(dict_repr)
+
+            if "id" in attr_dict \
+                    or "created_at" in attr_dict or "updated_at" in attr_dict:
+                print("Cannot update id, created_at, or updated_at")
+                return
+
+            for k, v in attr_dict.items():
+                # Use getattr with a default value to handle non-existent ones
+                current_value = getattr(input_instance, k, None)
+
+                # Check if the attribute exists
+                if current_value is not None:
+                    setattr(input_instance, k, type(current_value)(v))
+                else:
+                    print(
+                        "Attribute {} does not exist in {}".format(
+                            k, class_obj.__name__
+                        ))
+            input_instance.save()
+        else:
+            print("** no instance found **")
+
     def do_update(self, input_str):
         """Updates inst based on class name & id by adding or updating attr"""
         args = input_str.split()
 
-        if not re.match(r'^[a-zA-Z_]\w*\.update\(\w+, \{.*\}\)$', input_str.strip()):
-            print("** Invalid update command format **", input_str)
+        if not re.match(r'^[a-zA-Z_]\w*\.update\(\w+, \{.*\}\)$',
+                        input_str.strip()):
+            self.update_inst(input_str)
             return
 
         if len(args) == 0:
@@ -193,35 +242,6 @@ class HBNBCommand(cmd.Cmd):
         actual_cmd = "{} {} {}".format(method_part, class_part, method_args)
 
         return actual_cmd.replace('"', '').replace(',', '')
-
-    def update_inst(class_obj, inst_id, attr_dict):
-        """Updates an instance based on ID with dictionary"""
-        key = f"{class_obj.__name__}.{inst_id}"
-        found = storage.all()
-
-        if key in found:
-            input_instance = found[key]
-
-            if "id" in attr_dict \
-                    or "created_at" in attr_dict or "updated_at" in attr_dict:
-                print("Cannot update id, created_at, or updated_at")
-                return
-
-            for k, v in attr_dict.items():
-                # Use getattr with a default value to handle non-existent ones
-                current_value = getattr(input_instance, k, None)
-
-                # Check if the attribute exists
-                if current_value is not None:
-                    setattr(input_instance, k, type(current_value)(v))
-                else:
-                    print(
-                        "Attribute {} does not exist in {}".format(
-                            k, class_obj.__name__
-                        ))
-            input_instance.save()
-        else:
-            print("** no instance found **")
 
 
 if __name__ == '__main__':

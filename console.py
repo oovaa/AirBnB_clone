@@ -41,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
 
         elif args[0] not in HBNBCommand.actual_class:
-            print("** class doesn't exist**")
+            print("** class doesn't exist **")
 
         else:
             target_class = globals()[args[0]]

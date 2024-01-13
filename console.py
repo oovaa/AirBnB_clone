@@ -33,9 +33,9 @@ class HBNBCommand(cmd.Cmd):
         """Execute nothing"""
         pass
 
-    def do_create(self, input):
+    def do_create(self, input_str):
         """Create instance of BaseModel & save json file"""
-        args = input.split()
+        args = input_str.split()
 
         if len(args) == 0:
             print("** class name missing **")
@@ -49,9 +49,9 @@ class HBNBCommand(cmd.Cmd):
             print(new.id)
             new.save()
 
-    def do_show(self, input):
+    def do_show(self, input_str):
         """Prints the string repre of instance based on class name & id"""
-        args = input.split()
+        args = input_str.split()
 
         if len(args) == 0:
             print("** class name missing **")
@@ -70,9 +70,9 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** no instance found **")
 
-    def do_destroy(self, input):
+    def do_destroy(self, input_str):
         """Deletes an instance based on the class name and id"""
-        args = input.split()
+        args = input_str.split()
 
         if len(args) == 0:
             print("** class name missing **")
@@ -91,9 +91,9 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-    def do_all(self, input):
+    def do_all(self, input_str):
         """Prints all str rep of all insts based or not on the class name."""
-        args = input.split()
+        args = input_str.split()
 
         if args[0] not in HBNBCommand.actual_class:
             print("** class doesn't exist **")
@@ -106,9 +106,13 @@ class HBNBCommand(cmd.Cmd):
 
         print(instances)
 
-    def do_update(self, input):
+    def do_update(self, input_str):
         """Updates inst based on class name & id by adding or updating attr"""
-        args = input.split()
+        args = input_str.split()
+
+        if not re.match(r'^[a-zA-Z_]\w*\.update\(\w+, \{.*\}\)$', input_str.strip()):
+            print("** Invalid update command format **", input_str)
+            return
 
         if len(args) == 0:
             print("** class name missing **")

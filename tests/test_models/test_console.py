@@ -8,7 +8,8 @@ Unittest classes:
 """
 
 import unittest
+from console import HBNBCommand
 
 
-class TestReview_instantiation(unittest.TestCase):
+class Test_Console(unittest.TestCase):
     pass

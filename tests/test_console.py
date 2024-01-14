@@ -2,6 +2,7 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 from console import HBNBCommand
+from models.base_model import BaseModel
 
 
 class TestHBNBCommand(unittest.TestCase):
@@ -9,7 +10,7 @@ class TestHBNBCommand(unittest.TestCase):
     def setUp(self):
         self.hbnb_command = HBNBCommand()
 
-    def assertCommandOutput(self, command):
+    def getCommandOutput(self, command):
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
             self.hbnb_command.onecmd(command)
             return mock_stdout.getvalue().strip()
@@ -34,7 +35,7 @@ class TestHBNBCommand(unittest.TestCase):
 
     def test_create(self):
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            output = self.assertCommandOutput("create BaseModel")
+            output = self.getCommandOutput("create BaseModel")
             # Check if the output is a valid UUID
             self.assertTrue(len(output) == 36)
 
@@ -42,7 +43,7 @@ class TestHBNBCommand(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
             self.hbnb_command.onecmd("create BaseModel")
             instance_id = mock_stdout.getvalue().strip()
-            output = self.assertCommandOutput(f"show BaseModel {instance_id}")
+            output = self.getCommandOutput(f"show BaseModel {instance_id}")
             # Check if the instance details are in the output
             self.assertTrue(instance_id in output)
 
@@ -51,11 +52,116 @@ class TestHBNBCommand(unittest.TestCase):
             self.hbnb_command.onecmd("create BaseModel")
             instance_id = mock_stdout.getvalue().strip()
             self.hbnb_command.onecmd(f"destroy BaseModel {instance_id}")
-            output = self.assertCommandOutput(f"show BaseModel {instance_id}")
+            output = self.getCommandOutput(f"show BaseModel {instance_id}")
             # Check if the instance is deleted
             self.assertTrue("** no instance found **" in output)
 
-    # Add similar test methods for other commands (all, update, count)...
+
+class TestHBNBCommand_errors(unittest.TestCase):
+
+    def setUp(self):
+        self.hbnb_command = HBNBCommand()
+
+    def getCommandOutput(self, command):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.hbnb_command.onecmd(command)
+            return mock_stdout.getvalue().strip()
+
+    def test_create_class_name_missing(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("create")
+            self.assertEqual(output, "** class name missing **")
+
+    def test_create_class_not_exist(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("create MyModel")
+            self.assertEqual(output, "** class doesn't exist **")
+
+    def test_show_class_name_missing(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("show")
+            self.assertEqual(output, "** class name missing **")
+
+    def test_show_class_not_exist(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("show MyModel")
+            self.assertEqual(output, "** class doesn't exist **")
+
+    def test_show_id_not_exist(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("show BaseModel")
+            self.assertEqual(output, "** instance id missing **")
+
+    def test_show_id_not_found(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("show BaseModel 213415ms")
+            self.assertEqual(output, "** no instance found **")
+
+    def test_destroy_class_name_missing(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("destroy")
+            self.assertEqual(output, "** class name missing **")
+
+    def test_destroy_class_not_exist(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("destroy MyModel")
+            self.assertEqual(output, "** class doesn't exist **")
+
+    def test_destroy_instance_id_missing(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("destroy BaseModel")
+            self.assertEqual(output, "** instance id missing **")
+
+    def test_destroy_no_instance_found(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("destroy BaseModel 121212")
+            self.assertEqual(output, "** no instance found **")
+
+    def test_all_with_class_name(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("all BaseModel")
+            # You may want to assert the format of the output if it's specific
+            self.assertNotEqual(output, "** class doesn't exist **")
+
+    def test_all_nonexistent_class(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("all MyModel")
+            self.assertEqual(output, "** class doesn't exist **")
+
+    def test_update_class_name_missing(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("update")
+            self.assertEqual(output, "** class name missing **")
+
+    def test_update_class_not_exist(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("update MyModel")
+            self.assertEqual(output, "** class doesn't exist **")
+
+    def test_update_instance_id_missing(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("update BaseModel")
+            self.assertEqual(output, "** instance id missing **")
+
+    def test_update_no_instance_found(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("update BaseModel 121212")
+            self.assertEqual(output, "** no instance found **")
+
+    def test_update_attribute_name_missing(self):
+        to_update = BaseModel()
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput(f"update BaseModel {to_update.id}")
+            self.assertEqual(output, "** attribute name missing **")
+
+    def test_update_value_missing(self):
+        to_update = BaseModel()
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput(
+                f"update BaseModel {to_update.id} first_name")
+            self.assertEqual(output, "** value missing **")
+
+# Add more test methods for other conditions related to 'update'...
 
 
 if __name__ == '__main__':

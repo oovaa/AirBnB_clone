@@ -55,11 +55,11 @@ class TestCommands(unittest.TestCase):
 
     # Similar test methods for other commands (destroy, all, update)...
 
-
     def test_all(self):
         # Use the ID of the created instance in setUp
         # Convert the instance to a string
-        expected_output = str(list(models.storage.all().values())[0])  # Convert the instance to a string
+        expected_output = str(list(models.storage.all().values())[
+                              0])  # Convert the instance to a string
         actual_output = self.assertCommandOutput("all BaseModel")
 
         # print("Expected Output:", expected_output)    TODO

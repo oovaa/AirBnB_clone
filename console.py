@@ -241,7 +241,7 @@ class HBNBCommand(cmd.Cmd):
         # Get the actual command
         actual_cmd = "{} {} {}".format(method_part, class_part, method_args)
 
-        return actual_cmd.replace('"', '').replace(',', '')
+        return actual_cmd
 
 
 if __name__ == '__main__':

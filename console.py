@@ -244,6 +244,7 @@ class HBNBCommand(cmd.Cmd):
         return actual_cmd.replace('"', '').replace(',', '')
 
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
 

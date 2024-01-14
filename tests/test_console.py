@@ -3,6 +3,8 @@ from io import StringIO
 from unittest.mock import patch
 from console import HBNBCommand
 from models.base_model import BaseModel
+from models.user import User
+from models import storage
 
 
 class TestHBNBCommand(unittest.TestCase):
@@ -161,7 +163,53 @@ class TestHBNBCommand_errors(unittest.TestCase):
                 f"update BaseModel {to_update.id} first_name")
             self.assertEqual(output, "** value missing **")
 
-# Add more test methods for other conditions related to 'update'...
+
+class TestConsoleWithUser(unittest.TestCase):
+    def setUp(self):
+        self.hbnb_command = HBNBCommand()
+
+    def getCommandOutput(self, command):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.hbnb_command.onecmd(command)
+            return mock_stdout.getvalue().strip()
+
+    def test_create_user(self):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            output = self.getCommandOutput("create User")
+            self.assertTrue(output is not None and len(output) > 0)
+
+    def test_show_user(self):
+        user_instance = User()
+        user_id = user_instance.id
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.getCommandOutput(f"show User {user_id}")
+            output = mock_stdout.getvalue().strip()
+            self.assertTrue(str(user_instance) in output)
+
+    def test_destroy_user(self):
+        user_instance = User()
+        user_id = user_instance.id
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.hbnb_command.onecmd(f"destroy User {user_id}")
+            output = mock_stdout.getvalue().strip()
+            self.assertTrue(len(output) == 0)
+
+    def test_all_user(self):
+        user_instance = User()
+        user_id = user_instance.id
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.hbnb_command.onecmd(f"all User")
+            output = mock_stdout.getvalue().strip()
+            self.assertTrue(str(user_instance) in output)
+
+    def test_update_user(self):
+        user_instance = User()
+        user_id = user_instance.id
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.hbnb_command.onecmd(
+                f"update User {user_id} email 'test@example.com'")
+            output = mock_stdout.getvalue().strip()
+            self.assertTrue(len(output) == 0)
 
 
 if __name__ == '__main__':

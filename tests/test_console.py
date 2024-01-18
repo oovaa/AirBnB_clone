@@ -14,7 +14,22 @@ from models.amenity import Amenity
 from models import storage
 
 
-# Test HBNB
+class all_tests(unittest.TestCase):
+
+    def setUp(self):
+        self.hbnb_command = HBNBCommand()
+
+    def getCommandOutput(self, command):
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.hbnb_command.onecmd(command)
+            return mock_stdout.getvalue().strip()
+
+    def test_empty_line(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd(""))
+            self.assertEqual("", output.getvalue().strip())
+
+
 class TestHBNBCommand(unittest.TestCase):
     """Unit tests for HBNB command class"""
 

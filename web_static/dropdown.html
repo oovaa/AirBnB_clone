@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* Basic styling for the dropdown */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      /* Styling for the button that triggers the dropdown */
+      .dropdown button {
+        padding: 10px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* Styling for the dropdown content */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+
+      /* Styling for dropdown items */
+      .dropdown-content a {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: #800e0e;
+      }
+
+      /* Highlight the selected item */
+      .dropdown-content a:hover {
+        background-color: #818080;
+      }
+
+      /* Show the dropdown content when the button is hovered over */
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dropdown">
+      <button>Dropdown</button>
+      <div class="dropdown-content">
+        <a href="#">Option 1</a>
+        <a href="#">Option 2</a>
+        <a href="#">Option 3</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -22,9 +22,13 @@
   margin: 20px;
   border: 1px solid #ff5a5f;
   border-radius: 4px;
+  display: flex;
+  text-align: left;
+  justify-content: center;
+  position: relative;
 }
 
 .container .places article h2 {
   font-size: 30px;
-  text-align: center;
+  margin-top: 0px;
 }
